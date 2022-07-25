@@ -8,6 +8,7 @@
 #' @param .output The name of the output file. Set by default as "coolTab_output.xlsx".
 #' @param .sheet The name of the sheet where the table will be printed. Set by default as "Sheet".
 #' @param .title The table title. Set by default as "This is my cool tab".
+#' @param .reformat Set column and row names to title format; upper case for first letter. Set by default as "FALSE".
 #'
 #' @return
 #'
@@ -18,9 +19,10 @@
 #' @export
 #'
 printTab <- function(.tab, .position = c(1,1),
-                         .output = "coolTab_output.xlsx",
-                         .sheet = "Sheet",
-                         .title = NULL){
+                     .output = "coolTab_output.xlsx",
+                     .sheet = "Sheet",
+                     .title = NULL,
+                     .reformat = FALSE){
 
   # Create or load file
   if(file.exists(.output)){
@@ -38,10 +40,12 @@ printTab <- function(.tab, .position = c(1,1),
     .tab <- as.data.frame(.tab)
   }
 
-  colnames(.tab) <- sapply(colnames(.tab), str_to_title)
+  if(.reformat == TRUE){
+    colnames(.tab) <- sapply(colnames(.tab), str_to_title)
 
-  if(!is.null(rownames(.tab))){
-    rownames(.tab) <- sapply(rownames(.tab), str_to_title)
+    if(!is.null(rownames(.tab))){
+      rownames(.tab) <- sapply(rownames(.tab), str_to_title)
+    }
   }
 
   if(!is.null(.title)){
@@ -57,7 +61,7 @@ printTab <- function(.tab, .position = c(1,1),
   }
 
   if(is.null(rownames(.tab)) |
-     mean(rownames(.tab) == c(1:nrow(.tab)))==1){
+    mean(rownames(.tab) == c(1:nrow(.tab)))==1){
 
     writeData(wb, .tab, sheet = .sheet, colNames = TRUE, rowNames = FALSE,
               startRow = (.position[1]), startCol = .position[2],

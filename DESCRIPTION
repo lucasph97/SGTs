@@ -1,7 +1,7 @@
 Package: SGTs
 Type: Package
 Title: Statistical Genetics Team's Package.
-Version: 0.1.0
+Version: 1.0.0
 Author: Lucas Peitton <lucas.peitton.daf@gmail.com>
 Maintainer: Lucas Peitton <lucas.peitton.daf@gmail.com>
 Description: Provides tools to improve the way we work by enhancing time-efficiency
